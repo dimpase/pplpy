@@ -23,17 +23,7 @@ jobs:
 
       - name: Build wheels
         env:
-          CIBW_BEFORE_ALL_LINUX: >
-             curl -O https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.xz &&
-             tar xf gmp-6.2.1.tar.xz &&
-             cd gmp-6.2.1 &&
-             ./configure --enable-cxx &&
-             make install && cd .. &&
-             curl -O https://www.bugseng.com/products/ppl/download/ftp/releases/1.2/ppl-1.2.tar.xz &&
-             tar xf ppl-1.2.tar.xz &&
-             cd ppl-1.2 &&
-             ./configure --with-gmp-include=/usr/local/include --with-gmp-lib=/usr/local/lib --enable-coefficients=mpz --disable-fpmath --enable-interfaces=c++ && 
-             make install
+          CIBW_BEFORE_ALL_LINUX: apt-get install libgmp-dev libmpfr-dev libmpc-dev libppl-dev ppl-dev cython
 
         run: python -m cibuildwheel --output-dir wheelhouse
 
