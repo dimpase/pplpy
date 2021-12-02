@@ -18,13 +18,6 @@ before_script:
   # build documentation
   - make -w -C docs html
 
-python2.7:
-  stage: test
-  variables:
-    PYTHON: python
-    PKGS: python-pip python-sphinx python-configparser
-  script: *test_script
-
 python3.6:
   stage: test
   variables:
@@ -58,6 +51,7 @@ linux:
     DOCKER_DRIVER: overlay2
     # See https://github.com/docker-library/docker/pull/166
     DOCKER_TLS_CERTDIR: ""
+    PYTHON: python3
   script:
     - curl -sSL https://get.docker.com/ | sh
     - python -m pip install cibuildwheel==2.3.0
