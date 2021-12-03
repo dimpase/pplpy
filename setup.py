@@ -92,6 +92,7 @@ setup(
     package_data = {'ppl': ['*.pxd', '*.h', '*.hh']},
     include_dirs = ['ppl'] + sys.path,
     ext_modules = extensions,
+    install_requires=["Cython", "cysignals", "gmpy2"],
     cmdclass = {'build_ext': build_ext, 'test': TestCommand},
     **kwds
 )
