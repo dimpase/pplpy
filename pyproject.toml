@@ -2,5 +2,4 @@
 requires = ["setuptools", "wheel", "Cython", "cysignals", "sphinx", "gmpy2>=2.1.0b1"]
 build-backend = "setuptools.build_meta"
 [tool.cibuildwheel]
-build = "cp39-*manylinux_2*"
-manylinux-x86_64_image = "manylinux_2_24"
+build = "cp39-*manylinux*"
