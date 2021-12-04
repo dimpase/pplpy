@@ -25,23 +25,12 @@ jobs:
         env:
           CIBW_BEFORE_ALL_LINUX: >
             yum -y install gmp-devel &&
+            pip install --pre gmpy2 &&
             cd /tmp &&
             curl -O https://www.bugseng.com/products/ppl/download/ftp/releases/1.2/ppl-1.2.tar.xz &&
             tar xf ppl-1.2.tar.xz &&
             cd ppl-1.2 &&
             ./configure --enable-interfaces=c++ --enable-coefficients=mpz --disable-fpmath &&
-            make install &&
-            cd .. &&
-            curl -O https://www.mpfr.org/mpfr-current/mpfr-4.1.0.tar.xz  &&
-            tar xf mpfr-4.1.0.tar.xz &&
-            cd mpfr-4.1.0 &&
-            ./configure &&
-            make install &&
-            cd .. &&
-            curl -O https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz &&
-            tar xf mpc-1.2.1.tar.gz &&
-            cd mpc-1.2.1 &&
-            ./configure &&
             make install
 
         run: python -m cibuildwheel --output-dir wheelhouse

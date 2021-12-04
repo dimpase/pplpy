@@ -19,22 +19,7 @@ kwds.update(conf_dict['options'])
 # Adapted from Cython's new_build_ext
 class build_ext(_build_ext):
     def finalize_options(self):
-        # Check dependencies
-        try:
-            from Cython.Build.Dependencies import cythonize
-        except ImportError as E:
-            sys.stderr.write("Error: {0}\n".format(E))
-            sys.stderr.write("The installation of ppl requires Cython\n")
-            sys.exit(1)
-
-        try:
-            # We need the header files for cysignals at compile-time
-            import cysignals
-        except ImportError as E:
-            sys.stderr.write("Error: {0}\n".format(E))
-            sys.stderr.write("The installation of ppl requires cysignals\n")
-            sys.exit(1)
-
+        from Cython.Build.Dependencies import cythonize
         self.distribution.ext_modules[:] = cythonize(
             self.distribution.ext_modules,
             include_path=sys.path,
@@ -92,7 +77,7 @@ setup(
     package_data = {'ppl': ['*.pxd', '*.h', '*.hh']},
     include_dirs = ['ppl'] + sys.path,
     ext_modules = extensions,
-    install_requires=["Cython", "cysignals", "gmpy2"],
+    install_requires=["Cython", "cysignals", "wheel", "sphinx", "gmpy2 >= 2.1.0rc1"],
     cmdclass = {'build_ext': build_ext, 'test': TestCommand},
     **kwds
 )
